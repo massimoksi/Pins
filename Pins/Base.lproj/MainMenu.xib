@@ -669,13 +669,39 @@
         <window title="Pins" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
+            <rect key="contentRect" x="335" y="390" width="480" height="61"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="61"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ElO-XQ-S2N">
+                        <rect key="frame" x="14" y="13" width="452" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Pl0-gD-yCb"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Pin" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gBy-sQ-M8g">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="addPin:" target="fKS-7m-lDe" id="9Mf-cp-4Wv"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ElO-XQ-S2N" secondAttribute="trailing" constant="20" id="KLp-6i-BrE"/>
+                    <constraint firstAttribute="top" relation="greaterThanOrEqual" secondItem="ElO-XQ-S2N" secondAttribute="top" constant="-20" id="N1v-cA-Pv7"/>
+                    <constraint firstAttribute="bottom" secondItem="ElO-XQ-S2N" secondAttribute="bottom" constant="20" id="kZO-W0-uCr"/>
+                    <constraint firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ElO-XQ-S2N" secondAttribute="leading" constant="-20" id="qfZ-bG-fAH"/>
+                </constraints>
             </view>
-            <point key="canvasLocation" x="282" y="94"/>
+            <point key="canvasLocation" x="299" y="188"/>
         </window>
+        <viewController id="fKS-7m-lDe" customClass="EditViewController" customModule="Pins" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="EiT-Mj-1SZ" id="WBa-GV-pZP"/>
+            </connections>
+        </viewController>
     </objects>
 </document>

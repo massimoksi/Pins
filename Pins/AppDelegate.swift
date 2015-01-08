@@ -39,7 +39,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Create a menu item for each pinned folder in user defaults.
         let menuItem = NSMenuItem()
         if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders") {
-            // TODO: implement.
+            var counter = 0
+            for pinnedFolder in pinnedFolders {
+                menuItem.title = pinnedFolder["PinnedFolderShortName"]! as String
+                menuItem.action = Selector("openFolder:")
+                menuItem.enabled = true
+                menuItem.tag = counter++
+                menu.addItem(menuItem)
+            }
         }
         else {
             menuItem.title = NSLocalizedString("No pin available", comment: "Menu is empty.")
@@ -73,6 +80,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     // MARK: - Actions
+    
+    func openFolder(sender: NSMenuItem) {
+        let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders")!
+        let pinnedFolder = pinnedFolders[sender.tag] as Dictionary<String, String>
+        let pinnedFolderPath = pinnedFolder["PinnedFolderFullPath"]! as String
+        
+        // Open folder at specified path.
+        NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: pinnedFolderPath)!)
+    }
     
     func edit(sender: NSMenuItem) {
         self.window!.orderFront(self)
