@@ -37,10 +37,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.autoenablesItems = false
         
         // Create a menu item for each pinned folder in user defaults.
-        let menuItem = NSMenuItem()
         if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders") {
             var counter = 0
             for pinnedFolder in pinnedFolders {
+                let menuItem = NSMenuItem()
                 menuItem.title = pinnedFolder["PinnedFolderShortName"]! as String
                 menuItem.action = Selector("openFolder:")
                 menuItem.enabled = true
@@ -49,6 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         else {
+            let menuItem = NSMenuItem()
             menuItem.title = NSLocalizedString("No pin available", comment: "Menu is empty.")
             menuItem.enabled = false
             menu.addItem(menuItem)

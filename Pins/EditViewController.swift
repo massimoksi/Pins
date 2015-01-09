@@ -9,10 +9,13 @@
 import Cocoa
 
 
-class EditViewController: NSViewController {
+class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+    
+    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var deleteButton: NSButton!
     
     var pins = [Dictionary<String, String>]()
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -20,6 +23,8 @@ class EditViewController: NSViewController {
         if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders") {
             pins = pinnedFolders as [Dictionary<String, String>]
         }
+        
+        deleteButton.hidden = true
     }
     
     // MARK: - Actions
@@ -40,7 +45,37 @@ class EditViewController: NSViewController {
                 self.pins.append(newPin)
 
                 NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: "PinnedFolders")
+                
+                self.tableView.reloadData()
             }
         }
     }
+    
+    // MARK: - Table view data source
+
+    func numberOfRowsInTableView(aTableView: NSTableView!) -> Int {
+        return pins.count
+    }
+    
+    // MARK: - Table view delegate
+    
+    func tableView(tableView: NSTableView, viewForTableColumn: NSTableColumn, row: Int) -> NSView {
+        var cell = NSTableCellView()
+        
+        let currentPin = self.pins[row]
+        if (viewForTableColumn.identifier == "ShortNameTableColumn") {
+            cell = tableView.makeViewWithIdentifier("ShortNameCell", owner: self) as NSTableCellView
+            cell.textField!.stringValue = currentPin["PinnedFolderShortName"]!
+            cell.textField!.editable = true
+        }
+        else if (viewForTableColumn.identifier == "FullPathTableColumn") {
+            cell = tableView.makeViewWithIdentifier("FullPathCell", owner: self) as NSTableCellView
+            cell.textField!.stringValue = currentPin["PinnedFolderFullPath"]!
+            cell.textField!.editable = false
+            cell.textField!.selectable = true
+        }
+        
+        return cell
+    }
+    
 }
