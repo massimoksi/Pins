@@ -10,18 +10,21 @@ import Cocoa
 
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, StatusBarItemDelegate {
 
     @IBOutlet weak var window: NSWindow!
+    @IBOutlet weak var viewController: EditViewController!
     
     let statusBarItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2)
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         self.window!.orderOut(self)
         
+        self.viewController.statusBarItemDelegate = self
+        
         // Create status bar item.
-        statusBarItem.image = NSImage(named: "Pin")
-        statusBarItem.toolTip = "Pins"
+        self.statusBarItem.image = NSImage(named: "Pin")
+        self.statusBarItem.toolTip = "Pins"
         
         self.updateMenu()
     }
@@ -30,9 +33,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    // MARK: - Actions
+    
+    func openFolder(sender: NSMenuItem) {
+        let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders")!
+        let pinnedFolder = pinnedFolders[sender.tag] as Dictionary<String, String>
+        let pinnedFolderPath = pinnedFolder["PinnedFolderFullPath"]! as String
+        
+        // Open folder at specified path.
+        NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: pinnedFolderPath)!)
+    }
+    
+    func edit(sender: NSMenuItem) {
+        let app = NSApplication.sharedApplication()
+        app.activateIgnoringOtherApps(true)
+        self.window!.makeKeyAndOrderFront(self)
+    }
+    
+    func about(sender: NSMenuItem) {
+        let app = NSApplication.sharedApplication()
+        app.activateIgnoringOtherApps(true)
+        app.orderFrontStandardAboutPanel(sender)
+    }
+    
+    func quit(sender: NSMenuItem) {
+        NSApplication.sharedApplication().terminate(self)
+    }
+    
     // MARK: - Private methods
     
-    func updateMenu() {
+    private func updateMenu() {
         let menu = NSMenu()
         menu.autoenablesItems = false
         
@@ -62,10 +92,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let editMenuItem = NSMenuItem(title: NSLocalizedString("Edit...", comment: "Edit."), action: Selector("edit:"), keyEquivalent: "")
         editMenuItem.enabled = true
         menu.addItem(editMenuItem)
-
+        
         // Create a separator.
         menu.addItem(NSMenuItem.separatorItem())
-
+        
         // Create the about menu item.
         let aboutMenuItem = NSMenuItem(title: NSLocalizedString("About Pins", comment: "About"), action: Selector("about:"), keyEquivalent: "")
         aboutMenuItem.enabled = true
@@ -77,34 +107,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(quitMenuItem)
         
         // Add the menu to the status bar item.
-        statusBarItem.menu = menu
+        self.statusBarItem.menu = menu
     }
+
+    // MARK: - Status bar item delegate
     
-    // MARK: - Actions
-    
-    func openFolder(sender: NSMenuItem) {
-        let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders")!
-        let pinnedFolder = pinnedFolders[sender.tag] as Dictionary<String, String>
-        let pinnedFolderPath = pinnedFolder["PinnedFolderFullPath"]! as String
-        
-        // Open folder at specified path.
-        NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: pinnedFolderPath)!)
-    }
-    
-    func edit(sender: NSMenuItem) {
-        let app = NSApplication.sharedApplication()
-        app.activateIgnoringOtherApps(true)
-        self.window!.makeKeyAndOrderFront(self)
-    }
-    
-    func about(sender: NSMenuItem) {
-        let app = NSApplication.sharedApplication()
-        app.activateIgnoringOtherApps(true)
-        app.orderFrontStandardAboutPanel(sender)
-    }
-    
-    func quit(sender: NSMenuItem) {
-        NSApplication.sharedApplication().terminate(self)
+    func pinsDidChange() {
+        self.updateMenu()
     }
     
 }

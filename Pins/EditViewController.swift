@@ -16,15 +16,17 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
     
     var pins = [Dictionary<String, String>]()
     
+    weak var statusBarItemDelegate: StatusBarItemDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
         if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders") {
-            pins = pinnedFolders as [Dictionary<String, String>]
+            self.pins = pinnedFolders as [Dictionary<String, String>]
         }
         
-        deleteButton.hidden = true
+        self.deleteButton.hidden = true
     }
     
     // MARK: - Actions
@@ -47,14 +49,30 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
                 NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: "PinnedFolders")
                 
                 self.tableView.reloadData()
+                self.statusBarItemDelegate?.pinsDidChange()
             }
         }
+    }
+    
+    @IBAction func removePin(sender: NSButton) {
+        self.pins.removeAtIndex(self.tableView.selectedRow)
+        if (self.pins.count > 0) {
+            NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: "PinnedFolders")
+        }
+        else {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("PinnedFolders")
+        }
+        
+        self.tableView.reloadData()
+        self.statusBarItemDelegate?.pinsDidChange()
+        
+        self.deleteButton.hidden = true
     }
     
     // MARK: - Table view data source
 
     func numberOfRowsInTableView(aTableView: NSTableView!) -> Int {
-        return pins.count
+        return self.pins.count
     }
     
     // MARK: - Table view delegate
@@ -76,6 +94,15 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
         }
         
         return cell
+    }
+    
+    func tableViewSelectionDidChange(notification: NSNotification) {
+        if (self.tableView.selectedRow == -1) {
+            self.deleteButton.hidden = true
+        }
+        else {
+            self.deleteButton.hidden = false
+        }
     }
     
 }
