@@ -91,8 +91,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func edit(sender: NSMenuItem) {
-        self.window!.orderFront(self)
-        // TODO: make the window active.
+        let app = NSApplication.sharedApplication()
+        app.activateIgnoringOtherApps(true)
+        self.window!.makeKeyAndOrderFront(self)
     }
     
     func about(sender: NSMenuItem) {
