@@ -9,7 +9,7 @@
 import Cocoa
 
 
-class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var deleteButton: NSButton!
@@ -69,6 +69,27 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
         self.deleteButton.hidden = true
     }
     
+    func editPin(sender: NSTextField) {
+        let newShortName = sender.stringValue
+        if (newShortName != "") {
+            let index = self.tableView.selectedRow
+            
+            // Update the pin.
+            var editedPin = self.pins[index]
+            editedPin["PinnedFolderShortName"] = newShortName
+            self.pins[index] = editedPin
+            
+            NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: "PinnedFolders")
+            
+            self.statusBarItemDelegate?.pinsDidChange()
+        }
+        else {
+            self.tableView.reloadData()
+            
+            self.deleteButton.hidden = true
+        }
+    }
+    
     // MARK: - Table view data source
 
     func numberOfRowsInTableView(aTableView: NSTableView!) -> Int {
@@ -85,6 +106,7 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
             cell = tableView.makeViewWithIdentifier("ShortNameCell", owner: self) as NSTableCellView
             cell.textField!.stringValue = currentPin["PinnedFolderShortName"]!
             cell.textField!.editable = true
+            cell.textField!.delegate = self
         }
         else if (viewForTableColumn.identifier == "FullPathTableColumn") {
             cell = tableView.makeViewWithIdentifier("FullPathCell", owner: self) as NSTableCellView
@@ -103,6 +125,15 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
         else {
             self.deleteButton.hidden = false
         }
+    }
+    
+    // MARK: - Text field delegate
+    
+    func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        let sender = control as NSTextField
+        self.editPin(sender)
+        
+        return true
     }
     
 }
