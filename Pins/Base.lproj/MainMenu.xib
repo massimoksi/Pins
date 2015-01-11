@@ -776,12 +776,11 @@
                         </tableHeaderView>
                     </scrollView>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1EP-LU-PR5">
-                        <rect key="frame" x="20" y="18" width="40" height="25"/>
+                        <rect key="frame" x="20" y="18" width="22" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="22" id="LjP-wl-pF3"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="cr4-vn-xUI"/>
+                            <constraint firstAttribute="width" constant="22" id="0zI-m9-dsD"/>
                         </constraints>
-                        <buttonCell key="cell" type="roundTextured" title="Add" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aT1-SC-6Gb">
+                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Add" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aT1-SC-6Gb">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -790,12 +789,11 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tyk-Yu-Flr">
-                        <rect key="frame" x="68" y="18" width="54" height="25"/>
+                        <rect key="frame" x="50" y="18" width="22" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="22" id="OqC-Ss-QT2"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="54" id="wl6-h0-MMe"/>
+                            <constraint firstAttribute="width" constant="22" id="f3L-Zw-lFH"/>
                         </constraints>
-                        <buttonCell key="cell" type="roundTextured" title="Delete" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mPH-Eg-TQt">
+                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Rem" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mPH-Eg-TQt">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -805,14 +803,14 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="tyk-Yu-Flr" firstAttribute="leading" secondItem="1EP-LU-PR5" secondAttribute="trailing" constant="8" id="95o-kq-PRs"/>
-                    <constraint firstAttribute="trailing" secondItem="o8O-u7-GJ1" secondAttribute="trailing" constant="20" id="ADJ-pv-8sl"/>
-                    <constraint firstItem="o8O-u7-GJ1" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="Wcb-lZ-VpW"/>
-                    <constraint firstItem="1EP-LU-PR5" firstAttribute="top" secondItem="o8O-u7-GJ1" secondAttribute="bottom" constant="8" id="baq-pU-4k9"/>
-                    <constraint firstItem="tyk-Yu-Flr" firstAttribute="top" secondItem="o8O-u7-GJ1" secondAttribute="bottom" constant="8" id="mSA-pG-kiW"/>
-                    <constraint firstItem="1EP-LU-PR5" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="seI-eF-ViW"/>
-                    <constraint firstAttribute="bottom" secondItem="o8O-u7-GJ1" secondAttribute="bottom" constant="50" id="tle-ky-Mrr"/>
-                    <constraint firstItem="o8O-u7-GJ1" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="ukb-fb-Wdb"/>
+                    <constraint firstAttribute="trailing" secondItem="o8O-u7-GJ1" secondAttribute="trailing" constant="20" symbolic="YES" id="2jf-Js-2iD"/>
+                    <constraint firstItem="tyk-Yu-Flr" firstAttribute="top" secondItem="1EP-LU-PR5" secondAttribute="top" id="D7X-DG-IWU"/>
+                    <constraint firstAttribute="bottom" secondItem="1EP-LU-PR5" secondAttribute="bottom" constant="20" symbolic="YES" id="E10-jT-QlC"/>
+                    <constraint firstItem="1EP-LU-PR5" firstAttribute="top" secondItem="o8O-u7-GJ1" secondAttribute="bottom" constant="8" symbolic="YES" id="UBH-Bh-bHe"/>
+                    <constraint firstItem="o8O-u7-GJ1" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="dUN-ya-ahZ"/>
+                    <constraint firstItem="1EP-LU-PR5" firstAttribute="leading" secondItem="o8O-u7-GJ1" secondAttribute="leading" id="fUu-Tl-VRN"/>
+                    <constraint firstItem="o8O-u7-GJ1" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="lvR-hm-c1F"/>
+                    <constraint firstItem="tyk-Yu-Flr" firstAttribute="leading" secondItem="1EP-LU-PR5" secondAttribute="trailing" constant="8" symbolic="YES" id="mtX-AX-EOO"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="430" y="141.5"/>
@@ -825,4 +823,8 @@
             </connections>
         </viewController>
     </objects>
+    <resources>
+        <image name="Add" width="20" height="20"/>
+        <image name="Rem" width="20" height="20"/>
+    </resources>
 </document>
