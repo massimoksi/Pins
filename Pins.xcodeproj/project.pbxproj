@@ -14,6 +14,7 @@
 		5688FA2E1A5F446100D381E2 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA2D1A5F446100D381E2 /* EditViewController.swift */; };
 		5688FA321A608FA800D381E2 /* StatusBarItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA311A608FA800D381E2 /* StatusBarItemDelegate.swift */; };
 		5688FA341A627BDE00D381E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA331A627BDE00D381E2 /* Constants.swift */; };
+		5688FA361A62822100D381E2 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5688FA351A62822100D381E2 /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		5688FA2D1A5F446100D381E2 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		5688FA311A608FA800D381E2 /* StatusBarItemDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarItemDelegate.swift; sourceTree = "<group>"; };
 		5688FA331A627BDE00D381E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5688FA351A62822100D381E2 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		5688FA041A5F19E500D381E2 = {
 			isa = PBXGroup;
 			children = (
+				5688FA351A62822100D381E2 /* LICENSE */,
 				5688FA0F1A5F19E500D381E2 /* Pins */,
 				5688FA201A5F19E500D381E2 /* PinsTests */,
 				5688FA0E1A5F19E500D381E2 /* Products */,
@@ -195,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5688FA361A62822100D381E2 /* LICENSE in Resources */,
 				5688FA151A5F19E500D381E2 /* Images.xcassets in Resources */,
 				5688FA181A5F19E500D381E2 /* MainMenu.xib in Resources */,
 			);
