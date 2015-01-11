@@ -13,6 +13,7 @@
 		5688FA241A5F19E500D381E2 /* PinsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA231A5F19E500D381E2 /* PinsTests.swift */; };
 		5688FA2E1A5F446100D381E2 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA2D1A5F446100D381E2 /* EditViewController.swift */; };
 		5688FA321A608FA800D381E2 /* StatusBarItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA311A608FA800D381E2 /* StatusBarItemDelegate.swift */; };
+		5688FA341A627BDE00D381E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA331A627BDE00D381E2 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		5688FA231A5F19E500D381E2 /* PinsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinsTests.swift; sourceTree = "<group>"; };
 		5688FA2D1A5F446100D381E2 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		5688FA311A608FA800D381E2 /* StatusBarItemDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarItemDelegate.swift; sourceTree = "<group>"; };
+		5688FA331A627BDE00D381E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				5688FA141A5F19E500D381E2 /* Images.xcassets */,
 				5688FA121A5F19E500D381E2 /* AppDelegate.swift */,
 				5688FA2D1A5F446100D381E2 /* EditViewController.swift */,
+				5688FA331A627BDE00D381E2 /* Constants.swift */,
 				5688FA311A608FA800D381E2 /* StatusBarItemDelegate.swift */,
 				5688FA101A5F19E500D381E2 /* Supporting Files */,
 			);
@@ -214,6 +217,7 @@
 				5688FA321A608FA800D381E2 /* StatusBarItemDelegate.swift in Sources */,
 				5688FA2E1A5F446100D381E2 /* EditViewController.swift in Sources */,
 				5688FA131A5F19E500D381E2 /* AppDelegate.swift in Sources */,
+				5688FA341A627BDE00D381E2 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

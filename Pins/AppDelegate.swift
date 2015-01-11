@@ -36,9 +36,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, StatusBarItemDelegate {
     // MARK: - Actions
     
     func openFolder(sender: NSMenuItem) {
-        let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders")!
+        let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey(Constants.PinnedFoldersKey)!
         let pinnedFolder = pinnedFolders[sender.tag] as Dictionary<String, String>
-        let pinnedFolderPath = pinnedFolder["PinnedFolderFullPath"]! as String
+        let pinnedFolderPath = pinnedFolder[Constants.PinnedFoldersFullPathKey]! as String
         
         // Open folder at specified path.
         NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: pinnedFolderPath)!)
@@ -67,11 +67,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, StatusBarItemDelegate {
         menu.autoenablesItems = false
         
         // Create a menu item for each pinned folder in user defaults.
-        if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders") {
+        if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey(Constants.PinnedFoldersKey) {
             var counter = 0
             for pinnedFolder in pinnedFolders {
                 let menuItem = NSMenuItem()
-                menuItem.title = pinnedFolder["PinnedFolderShortName"]! as String
+                menuItem.title = pinnedFolder[Constants.PinnedFoldersShortNameKey]! as String
                 menuItem.action = Selector("openFolder:")
                 menuItem.enabled = true
                 menuItem.tag = counter++

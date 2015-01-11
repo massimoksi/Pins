@@ -22,7 +22,7 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
-        if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey("PinnedFolders") {
+        if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey(Constants.PinnedFoldersKey) {
             self.pins = pinnedFolders as [Dictionary<String, String>]
         }
         
@@ -41,12 +41,12 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
             if (response == NSFileHandlingPanelOKButton) {
                 let pinnedFolder = openPanel.URLs[0] as NSURL
                 let newPin = [
-                    "PinnedFolderShortName": pinnedFolder.lastPathComponent!,
-                    "PinnedFolderFullPath": pinnedFolder.path!
+                    Constants.PinnedFoldersShortNameKey: pinnedFolder.lastPathComponent!,
+                    Constants.PinnedFoldersFullPathKey: pinnedFolder.path!
                 ]
                 self.pins.append(newPin)
 
-                NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: "PinnedFolders")
+                NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: Constants.PinnedFoldersKey)
                 
                 self.tableView.reloadData()
                 self.statusBarItemDelegate?.pinsDidChange()
@@ -57,10 +57,10 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
     @IBAction func removePin(sender: NSButton) {
         self.pins.removeAtIndex(self.tableView.selectedRow)
         if (self.pins.count > 0) {
-            NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: "PinnedFolders")
+            NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: Constants.PinnedFoldersKey)
         }
         else {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("PinnedFolders")
+            NSUserDefaults.standardUserDefaults().removeObjectForKey(Constants.PinnedFoldersKey)
         }
         
         self.tableView.reloadData()
@@ -76,10 +76,10 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
             
             // Update the pin.
             var editedPin = self.pins[index]
-            editedPin["PinnedFolderShortName"] = newShortName
+            editedPin[Constants.PinnedFoldersShortNameKey] = newShortName
             self.pins[index] = editedPin
             
-            NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: "PinnedFolders")
+            NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: Constants.PinnedFoldersKey)
             
             self.statusBarItemDelegate?.pinsDidChange()
         }
@@ -104,13 +104,13 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
         let currentPin = self.pins[row]
         if (viewForTableColumn.identifier == "ShortNameTableColumn") {
             cell = tableView.makeViewWithIdentifier("ShortNameCell", owner: self) as NSTableCellView
-            cell.textField!.stringValue = currentPin["PinnedFolderShortName"]!
+            cell.textField!.stringValue = currentPin[Constants.PinnedFoldersShortNameKey]!
             cell.textField!.editable = true
             cell.textField!.delegate = self
         }
         else if (viewForTableColumn.identifier == "FullPathTableColumn") {
             cell = tableView.makeViewWithIdentifier("FullPathCell", owner: self) as NSTableCellView
-            cell.textField!.stringValue = currentPin["PinnedFolderFullPath"]!
+            cell.textField!.stringValue = currentPin[Constants.PinnedFoldersFullPathKey]!
             cell.textField!.editable = false
             cell.textField!.selectable = true
         }
