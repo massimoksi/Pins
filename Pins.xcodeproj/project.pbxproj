@@ -15,6 +15,7 @@
 		5688FA321A608FA800D381E2 /* StatusBarItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA311A608FA800D381E2 /* StatusBarItemDelegate.swift */; };
 		5688FA341A627BDE00D381E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA331A627BDE00D381E2 /* Constants.swift */; };
 		5688FA361A62822100D381E2 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5688FA351A62822100D381E2 /* LICENSE */; };
+		5688FA381A62B30500D381E2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5688FA371A62B30500D381E2 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		5688FA311A608FA800D381E2 /* StatusBarItemDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarItemDelegate.swift; sourceTree = "<group>"; };
 		5688FA331A627BDE00D381E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5688FA351A62822100D381E2 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		5688FA371A62B30500D381E2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		5688FA041A5F19E500D381E2 = {
 			isa = PBXGroup;
 			children = (
+				5688FA371A62B30500D381E2 /* README.md */,
 				5688FA351A62822100D381E2 /* LICENSE */,
 				5688FA0F1A5F19E500D381E2 /* Pins */,
 				5688FA201A5F19E500D381E2 /* PinsTests */,
@@ -220,6 +223,7 @@
 			files = (
 				5688FA321A608FA800D381E2 /* StatusBarItemDelegate.swift in Sources */,
 				5688FA2E1A5F446100D381E2 /* EditViewController.swift in Sources */,
+				5688FA381A62B30500D381E2 /* README.md in Sources */,
 				5688FA131A5F19E500D381E2 /* AppDelegate.swift in Sources */,
 				5688FA341A627BDE00D381E2 /* Constants.swift in Sources */,
 			);
@@ -409,6 +413,7 @@
 				5688FA291A5F19E500D381E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5688FA2A1A5F19E500D381E2 /* Build configuration list for PBXNativeTarget "PinsTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +422,7 @@
 				5688FA2C1A5F19E500D381E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
