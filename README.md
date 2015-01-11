@@ -4,7 +4,7 @@ A status bar application for Yosemite developed in Swift to quickly open, with a
 
 ## Changelog
 
-### v0.0.1
+### 0.0.1
 - First version.
 
 ## Contact
