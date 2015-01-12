@@ -36,6 +36,8 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
+        self.tableView.registerForDraggedTypes([NSPasteboardTypeString])
+        
         if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey(Constants.PinnedFoldersKey) {
             self.pins = pinnedFolders as [Dictionary<String, String>]
         }
@@ -108,6 +110,41 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
 
     func numberOfRowsInTableView(aTableView: NSTableView!) -> Int {
         return self.pins.count
+    }
+    
+    func tableView(aTableView: NSTableView, writeRowsWithIndexes rowIndexes: NSIndexSet, toPasteboard pboard: NSPasteboard) -> Bool {
+        // TODO: check if it's working without ": NSData".
+        let data = NSKeyedArchiver.archivedDataWithRootObject(rowIndexes)
+        pboard.declareTypes([NSPasteboardTypeString], owner: self)
+        pboard.setData(data, forType: NSPasteboardTypeString)
+        
+        return true
+    }
+    
+    func tableView(aTableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation operation: NSTableViewDropOperation) -> NSDragOperation {
+        return .Move
+    }
+    
+    func tableView(aTableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation operation: NSTableViewDropOperation) -> Bool {
+        let data = info.draggingPasteboard().dataForType(NSPasteboardTypeString)!
+        let rowIndexes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as NSIndexSet
+        let sourceRow = rowIndexes.firstIndex
+        let draggedPin = self.pins[sourceRow]
+        
+        self.pins.removeAtIndex(sourceRow)
+        if (row > self.pins.count) {
+            self.pins.insert(draggedPin, atIndex: row - 1)
+        }
+        else {
+            self.pins.insert(draggedPin, atIndex: row)
+        }
+        
+        NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: Constants.PinnedFoldersKey)
+        
+        self.statusBarItemDelegate?.pinsDidChange()
+        tableView.reloadData()
+        
+        return true
     }
     
     // MARK: - Table view delegate
