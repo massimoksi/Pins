@@ -36,7 +36,7 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
-        self.tableView.registerForDraggedTypes([NSPasteboardTypeString])
+        self.tableView.registerForDraggedTypes([NSPasteboardTypeString, NSURLPboardType])
         
         if let pinnedFolders = NSUserDefaults.standardUserDefaults().arrayForKey(Constants.PinnedFoldersKey) {
             self.pins = pinnedFolders as [Dictionary<String, String>]
@@ -113,7 +113,6 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
     }
     
     func tableView(aTableView: NSTableView, writeRowsWithIndexes rowIndexes: NSIndexSet, toPasteboard pboard: NSPasteboard) -> Bool {
-        // TODO: check if it's working without ": NSData".
         let data = NSKeyedArchiver.archivedDataWithRootObject(rowIndexes)
         pboard.declareTypes([NSPasteboardTypeString], owner: self)
         pboard.setData(data, forType: NSPasteboardTypeString)
@@ -122,21 +121,69 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
     }
     
     func tableView(aTableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation operation: NSTableViewDropOperation) -> NSDragOperation {
-        return .Move
+        if let draggingSource: AnyObject = info.draggingSource() {
+            return .Move
+        }
+        else {
+            let pasteboard = info.draggingPasteboard()
+            let aClass: AnyObject = classFromType(NSURL.self)
+            let classes = [aClass]
+            if let urls = pasteboard.readObjectsForClasses(classes, options: nil) as? [NSURL] {
+                if (urls.count != 1) {
+                    // Allow only single element dragging.
+                    return .None
+                }
+                
+                // Check if the url is a directory.
+                var error: NSError?
+                var resource: AnyObject?
+                let success = urls[0].getResourceValue(&resource, forKey: NSURLIsDirectoryKey, error: &error)
+                if success {
+                    let isDirectory = resource as Bool
+                    if isDirectory {
+                        return .Copy
+                    }
+                    else {
+                        return .None
+                    }
+                }
+                else {
+                    return .None
+                }
+            }
+            else {
+                return .None
+            }
+        }
     }
     
     func tableView(aTableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation operation: NSTableViewDropOperation) -> Bool {
-        let data = info.draggingPasteboard().dataForType(NSPasteboardTypeString)!
-        let rowIndexes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as NSIndexSet
-        let sourceRow = rowIndexes.firstIndex
-        let draggedPin = self.pins[sourceRow]
-        
-        self.pins.removeAtIndex(sourceRow)
-        if (row > self.pins.count) {
-            self.pins.insert(draggedPin, atIndex: row - 1)
+        if let draggingSource: AnyObject = info.draggingSource() {
+            let data = info.draggingPasteboard().dataForType(NSPasteboardTypeString)!
+            let rowIndexes = NSKeyedUnarchiver.unarchiveObjectWithData(data) as NSIndexSet
+            let sourceRow = rowIndexes.firstIndex
+            let draggedPin = self.pins[sourceRow]
+            
+            self.pins.removeAtIndex(sourceRow)
+            if (row > self.pins.count) {
+                self.pins.insert(draggedPin, atIndex: row - 1)
+            }
+            else {
+                self.pins.insert(draggedPin, atIndex: row)
+            }
         }
         else {
-            self.pins.insert(draggedPin, atIndex: row)
+            let pasteboard = info.draggingPasteboard()
+            let aClass: AnyObject = classFromType(NSURL.self)
+            let classes = [aClass]
+            let urls = pasteboard.readObjectsForClasses(classes, options: nil) as [NSURL]
+            
+            let draggedFolder = urls[0]
+            let newPin = [
+                Constants.PinnedFoldersShortNameKey: draggedFolder.lastPathComponent!,
+                Constants.PinnedFoldersFullPathKey: draggedFolder.path!
+            ]
+            self.pins.append(newPin)
         }
         
         NSUserDefaults.standardUserDefaults().setObject(self.pins, forKey: Constants.PinnedFoldersKey)
@@ -185,6 +232,13 @@ class EditViewController: NSViewController, NSTableViewDataSource, NSTableViewDe
         self.editPin(sender)
         
         return true
+    }
+    
+    // MARK: - Private methods
+    
+    private func classFromType<T: NSObject>(type: T.Type) -> AnyObject! {
+        // HACK: ask for class indirectly...
+        return T.valueForKey("self")
     }
     
 }
