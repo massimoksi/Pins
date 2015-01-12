@@ -1,6 +1,6 @@
 # Pins
 
-A status bar application for Yosemite developed in Swift to quickly open, with a single click, your most common used directories.
+A status bar application for Yosemite developed in Swift to keep your most common used folders just a click away.
 
 ## Changelog
 
