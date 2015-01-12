@@ -7,6 +7,10 @@ A status bar application for Yosemite developed in Swift to keep your most frequ
 ### 0.0.1
 - First version.
 
+### 0.0.2
+- Added drag and drop to reorder pinned folders.
+- Added drag and drop of folders from Finder.
+
 ## Contact
 
 Massimo Peri
