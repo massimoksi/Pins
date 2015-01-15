@@ -780,7 +780,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="22" id="0zI-m9-dsD"/>
                         </constraints>
-                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Add" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aT1-SC-6Gb">
+                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aT1-SC-6Gb">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -793,7 +793,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="22" id="f3L-Zw-lFH"/>
                         </constraints>
-                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Rem" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mPH-Eg-TQt">
+                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mPH-Eg-TQt">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -824,7 +824,7 @@
         </viewController>
     </objects>
     <resources>
-        <image name="Add" width="20" height="20"/>
-        <image name="Rem" width="20" height="20"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
     </resources>
 </document>
