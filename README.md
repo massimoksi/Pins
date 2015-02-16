@@ -1,5 +1,4 @@
-![Pins](Others/logo_256.png)
-# Pins
+# ![Pins](Others/logo_32.png) Pins
 
 A status bar application for Yosemite developed in Swift to keep your most frequently used folders just a click away.
 
