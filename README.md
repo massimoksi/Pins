@@ -2,6 +2,10 @@
 
 A status bar application for Yosemite (developed in Swift) to keep your most frequently used folders just a click away.
 
+![Status Bar](Others/Screenshot01.png)
+
+![Window](Others/Screenshot02.png)
+
 ## Changelog
 
 ### 0.0.1
